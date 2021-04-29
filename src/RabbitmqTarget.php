@@ -64,7 +64,6 @@ class RabbitmqTarget extends Target
         $exception = '';
         if (!is_string($message)) {
             if ($message instanceof \Throwable) {
-                $message = $message->getMessage();
                 $exception = $this->formatExceptionMessage($message); // get the exception message detail with stack trace, may have previous exception
             } else {
                 $message = VarDumper::export($message);
