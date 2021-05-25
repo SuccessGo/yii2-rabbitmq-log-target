@@ -25,7 +25,10 @@ class RabbitmqTarget extends Target
     public $exchange;
     public $key;
     public $producer;
-    public $fields;
+    /**
+     * @var string rabbitmq log model class name to customize fields to export
+     */
+    public $logModelClass;
 
     public function init()
     {
@@ -47,7 +50,7 @@ class RabbitmqTarget extends Target
             'exchange' => $this->exchange,
             'key' => $this->key,
             'producer' => $this->producer,
-            'fields' => $this->fields,
+            'logModelClass' => $this->logModelClass,
             'messages' => $messages,
         ]);
         $this->queue->push($job);

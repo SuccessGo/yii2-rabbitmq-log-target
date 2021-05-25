@@ -13,7 +13,7 @@ class RabbitmqJob extends BaseObject implements JobInterface
     public $key;
     public $exchange;
     public $producer;
-    public $fields;
+    public $logModelClass;
 
     public $messages;
 
@@ -24,9 +24,10 @@ class RabbitmqJob extends BaseObject implements JobInterface
         $producer = $rabbitmq->getProducer($this->producer);
 
         foreach ($this->messages as $message) {
-            if (!empty($this->fields)) {
-                $model = new RabbitmqLogModel($message);
-                $message = $model->toArray($this->fields);
+            if ($this->logModelClass !== null) {
+                /** @var RabbitmqLogModel $model */
+                $model = new $this->logModelClass($message);
+                $message = $model->toArray();
             }
             $producer->publish($message, $this->exchange, $this->key);
         }
