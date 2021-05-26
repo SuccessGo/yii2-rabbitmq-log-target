@@ -76,9 +76,9 @@ class RabbitmqTarget extends Target
 
         $id = UuidV4::uuid4()->toString();
 
-        $given = \DateTime::createFromFormat('U.u', YII_BEGIN_TIME, new \DateTimeZone('UTC'));
+        $given = \DateTime::createFromFormat('U.u', $timestamp, new \DateTimeZone('UTC'));
         if ($given instanceof \DateTime) {
-            $timestamp = $given->format('Y-m-d H:i:s.u');
+            $timestamp = $given->format('Y-m-d H:i:s.v');
         } else {
             $timestamp = null;
         }
